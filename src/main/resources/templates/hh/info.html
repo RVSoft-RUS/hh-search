@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Найденные вакансии</title>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Найденные вакансии</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+<div th:switch="${#lists.isEmpty(vacancies)} ? ${true} : ${false}">
+    <span th:case="${true}">   <h2>Не найдено ни одной вакансии!</h2>    </span>
+    <span th:case="${false}">
+        <h2>Найденные вакансии ( <span th:text="${vacancies.size()}"></span>  ):</h2>
+        <span class="btn-link small"><a href="/hh/select"> Изменить параметры поиска</a></span>
+        <br>
+        <div class="container-fluid">
+            <table class="table-hover small table-dark">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Вакансия</th>
+                        <th>Компания</th>
+                        <th>Зарплата</th>
+                        <th>Ссылка</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="vacancy : ${vacancies}">
+                    <td th:text="${vacancy.title}"></td>
+                    <td th:text="${vacancy.companyName}"></td>
+                    <td th:text="${vacancy.salary}"></td>
+                    <td>
+                    <a th:href="${vacancy.url}" target="_blank">Перейти к просмотру на hh.ru</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </span>
+</div>
+
+</body>
+</html>
